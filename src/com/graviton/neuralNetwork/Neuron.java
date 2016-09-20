@@ -14,9 +14,8 @@ public class Neuron extends JPanel
 	// Les inputs de la couche précédente
 	//public double inputs[];
 	private ArrayList<Neuron> inputs;
-	private ArrayList<Double> synapses;
+	private ArrayList<Double> synapses; // Ou poids
 	
-	private double sumInputs = 0;
 	private double localError = 0;
 	private double output = 0;
 	
@@ -35,9 +34,6 @@ public class Neuron extends JPanel
 		
 		rectangle = new Rectangle(new Dimension(80, 30));
 		this.position = position;
-		
-		if (position == null)
-			System.out.println("PROUT !!");
 		
 		// Graphical part - end
 		
@@ -59,28 +55,17 @@ public class Neuron extends JPanel
 				} while (temp > -0.3 && temp < 0.3);
 				
 				synapses.add(temp);
-//				System.out.println(temp);
 			}
 		}
 	}
 	
-	private void computeSum() 
+	private double computeSum() 
 	{
-		sumInputs = 0;
+		double sumInputs = 0;
 		for (int i = 0; i < inputs.size(); i++)
 			sumInputs += inputs.get(i).getOutput() * synapses.get(i);
-	}
-	
-	private void computeOutput()
-	{
-		computeSum();
-		this.output = sygmoide(sumInputs);
-	}
-	
-	private double computeDerivateOutput()
-	{
-		computeSum();
-		return derivateSygmoide(sumInputs);
+		
+		return sumInputs;
 	}
 	
 	public double getOutput() 
@@ -89,26 +74,19 @@ public class Neuron extends JPanel
 			return output;
 		
 		if (this.isInput)
-			return inputs.get(0).getOutput();
+			return inputs.get(0).getRawOutput();
 
-		computeOutput();
-		return output;
+		return Sigmoide.output(computeSum());
+	}
+	
+	public double getRawOutput() {
+		return this.output;
 	}
 	
 	public void updatingWeight()
 	{
 		for (int i = 0; i < synapses.size(); i++)
-			synapses.set(i, synapses.get(i) + Network.getLearningCoef() * localError * computeDerivateOutput() * inputs.get(i).getOutput());
-	}
-	
-	private double sygmoide(double x)
-	{
-		return 1 / (1 + Math.exp(-x));
-	}
-	
-	public double derivateSygmoide(double x)
-	{
-		return sygmoide(x) * (1 - sygmoide(x));
+			synapses.set(i, synapses.get(i) + Network.getLearningCoef() * localError * inputs.get(i).getOutput());
 	}
 	
 	public double getLocalError()
@@ -184,6 +162,10 @@ public class Neuron extends JPanel
 	}
 	
 	public void paintComponent(Graphics g) {
+		
+		if (this.isInput) {
+			g.drawString("" + (int) inputs.get(0).getRawOutput(), position.x - 10, position.y + 10);
+		}
 		
 		g.setColor(Color.GREEN);
 		g.fillOval(position.x, position.y, 10, 10);

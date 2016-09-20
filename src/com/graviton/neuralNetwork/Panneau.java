@@ -47,11 +47,8 @@ public class Panneau extends JPanel
 		g.drawString("Input (1, 1) : " + tab[3], 10, 245);
 		
 		if (network != null) {
-			
 			for (int l = 0; l < network.getLayers().size(); ++l) {
 				for (int n = 0; n < network.getLayers().get(l).getNeurons().size(); ++n) {
-					
-					
 					network.getLayers().get(l).getNeurons().get(n).paintComponent(g);
 				}
 			}

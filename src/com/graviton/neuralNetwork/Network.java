@@ -10,7 +10,9 @@ public class Network
 	private double globalError = 0;
 	public double outputs[] = {0, 0, 0, 0};
 	
-	private static final double LEARNING_COEF = 0.01;
+	private static final double LEARNING_COEF = 0.02;
+	
+	private int positionDep = 80;
 	private int distanceBtwNeurons = 20;
 	
 	public Network(int networkStructure[], double inputs[][]) 
@@ -39,15 +41,15 @@ public class Network
 	
 	public void addFirstLayer(double inputs[], int pos)
 	{
-		Layer temp = new Layer();
+		Layer temp = new Layer(this);
 		
 		for (int i = 0; i < inputs.length; i++)
 		{
 			// Utilisation d'un tableau pour simplification des calculs
-			ArrayList<Neuron> tab = new ArrayList<Neuron>();
-			tab.add(new Neuron(null, false, null));
-			tab.get(0).setOutput(inputs[i]);
-			temp.addNeuron(new Neuron(tab, true, new Point(pos * distanceBtwNeurons, i * distanceBtwNeurons)));
+//			ArrayList<Neuron> tab = new ArrayList<Neuron>();
+//			tab.add(new Neuron(null, false, null));
+//			tab.get(0).setOutput(inputs[i]);
+			temp.addNeuron(new Neuron(null, true, new Point(pos * distanceBtwNeurons + positionDep, i * distanceBtwNeurons + positionDep)));
 		}
 		
 		layers.add(temp);
@@ -55,11 +57,11 @@ public class Network
 	
 	public void addHiddenLayer(int tailleLayer, int pos)
 	{
-		Layer newLayer = new Layer();
+		Layer newLayer = new Layer(this);
 		
 		// Ajout du nombre de neuron correspondant
 		for (int i = 0; i < tailleLayer; i++) {
-			newLayer.addNeuron(new Neuron(layers.get(layers.size() - 1).getNeurons(), false, new Point(pos * distanceBtwNeurons, i * distanceBtwNeurons)));
+			newLayer.addNeuron(new Neuron(layers.get(layers.size() - 1).getNeurons(), false, new Point(pos * distanceBtwNeurons + positionDep, i * distanceBtwNeurons + positionDep)));
 		}
 		
 		this.layers.add(newLayer);
@@ -67,9 +69,9 @@ public class Network
 	
 	public void addLastLayer(int pos)
 	{
-		Layer newLayer = new Layer();
+		Layer newLayer = new Layer(this);
 		
-		newLayer.addNeuron(new Neuron(layers.get(layers.size() - 1).getNeurons(), false, new Point(pos * distanceBtwNeurons, distanceBtwNeurons)));
+		newLayer.addNeuron(new Neuron(layers.get(layers.size() - 1).getNeurons(), false, new Point(pos * distanceBtwNeurons + positionDep, distanceBtwNeurons + positionDep)));
 		
 		this.layers.add(newLayer);
 	}
@@ -78,10 +80,16 @@ public class Network
 	 * 	ACTION FONCTIONS
 	 */
 	
-	public void train(double expectedValue[])
+	public void train(double expectedValue[], double inputValues[][])
 	{
 		for (int i = 0; i < expectedValue.length; i++)
 		{
+			for (int j = 0; j < inputValues[i].length; ++j) {
+				ArrayList<Neuron> input = new ArrayList<>();
+				input.add(new Neuron(null, true, null));
+				input.get(0).setOutput(inputValues[i][j]);
+				layers.get(0).getNeurons().get(j).setInputs(input);
+			}
 			forwardPropagation(expectedValue[i]);
 			this.outputs[i] = this.output;
 			backPropagation();

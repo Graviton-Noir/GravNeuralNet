@@ -14,7 +14,7 @@ public class Interface extends JFrame
 	public Interface(double tab[], Network network)
 	{
 		this.setTitle("Neural Network Interface");
-		this.setSize(400, 600);
+		this.setSize(400, 400);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		pan = new Panneau(tab, network);

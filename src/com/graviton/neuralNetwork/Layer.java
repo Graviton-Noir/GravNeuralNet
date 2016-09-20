@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 public class Layer 
 {
+	private Network network;
 	public ArrayList<Neuron> neurons;
 	
-	public Layer()
+	public Layer(Network network)
 	{
 		neurons = new ArrayList<Neuron>();
+		this.network = network;
 	}
 	
 	public void addNeuron(Neuron neuron)
@@ -32,6 +34,9 @@ public class Layer
 			{
 				currentNeuron.getInputs().set(i, neuronPreviousLayer.get(i));
 			}
+			
+			// Permet un affichage en temps réel de l'écolution des output
+			// Sinon instant et on ne voit rien
 			System.out.println("---");
 		}
 	}
@@ -46,10 +51,10 @@ public class Layer
 			//For each neurons of the forward layer
 			for (Neuron forwardNeuron : forwardLayer.neurons)
 			{
-				newLocalError += forwardNeuron.getSynapses().get(i) * forwardNeuron.getLocalError();
-				System.out.println("local error : " + newLocalError);
+				newLocalError += Sigmoide.derivate(forwardNeuron.getSynapses().get(i)) * network.getGlobalError() * forwardNeuron.getLocalError();
 			}
 			this.neurons.get(i).setLocalError(newLocalError);
+			System.out.println("...");
 		}
 	}
 	
