@@ -46,10 +46,10 @@ public class Network
 		for (int i = 0; i < inputs.length; i++)
 		{
 			// Utilisation d'un tableau pour simplification des calculs
-//			ArrayList<Neuron> tab = new ArrayList<Neuron>();
-//			tab.add(new Neuron(null, false, null));
-//			tab.get(0).setOutput(inputs[i]);
-			temp.addNeuron(new Neuron(null, true, new Point(pos * distanceBtwNeurons + positionDep, i * distanceBtwNeurons + positionDep)));
+			ArrayList<Neuron> tab = new ArrayList<Neuron>();
+			tab.add(new Neuron(null, false, null));
+			tab.get(0).setOutput(inputs[i]);
+			temp.addNeuron(new Neuron(tab, true, new Point(pos * distanceBtwNeurons + positionDep, i * distanceBtwNeurons + positionDep)));
 		}
 		
 		layers.add(temp);

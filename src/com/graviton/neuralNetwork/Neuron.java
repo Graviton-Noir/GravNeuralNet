@@ -28,7 +28,6 @@ public class Neuron extends JPanel
 	{
 		this.inputs = inputs;
 		this.isInput = isInput;
-		
 
 		// Graphical part - begin
 		
@@ -70,11 +69,13 @@ public class Neuron extends JPanel
 	
 	public double getOutput() 
 	{
+		if (this.isInput) {
+			System.out.println("output : " + this.output);
+			return inputs.get(0).getRawOutput();
+		}
+		
 		if (inputs == null)
 			return output;
-		
-		if (this.isInput)
-			return inputs.get(0).getRawOutput();
 
 		return Sigmoide.output(computeSum());
 	}
@@ -163,8 +164,8 @@ public class Neuron extends JPanel
 	
 	public void paintComponent(Graphics g) {
 		
-		if (this.isInput) {
-			g.drawString("" + (int) inputs.get(0).getRawOutput(), position.x - 10, position.y + 10);
+		if (this.isInput && inputs.get(0) != null) {
+			g.drawString("" + inputs.get(0).getRawOutput(), position.x - 10, position.y + 10);
 		}
 		
 		g.setColor(Color.GREEN);

@@ -25,6 +25,7 @@ public class Interface extends JFrame
 	
 	public void display(double tab[])
 	{
+		System.out.println("tab : " + tab[0] + " " + tab[1]);
 		pan.updatePanneau(tab);
 		pan.repaint();
 	}

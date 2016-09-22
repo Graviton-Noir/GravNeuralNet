@@ -37,7 +37,7 @@ public class Layer
 			
 			// Permet un affichage en temps réel de l'écolution des output
 			// Sinon instant et on ne voit rien
-			System.out.println("---");
+			// System.out.println("---");
 		}
 	}
 	
@@ -54,7 +54,7 @@ public class Layer
 				newLocalError += Sigmoide.derivate(forwardNeuron.getSynapses().get(i)) * network.getGlobalError() * forwardNeuron.getLocalError();
 			}
 			this.neurons.get(i).setLocalError(newLocalError);
-			System.out.println("...");
+			//System.out.println("...");
 		}
 	}
 	
