@@ -48,7 +48,7 @@ public class Network
 			// Utilisation d'un tableau pour simplification des calculs
 			ArrayList<Neuron> tab = new ArrayList<Neuron>();
 			tab.add(new Neuron(null, false, null));
-			tab.get(0).setOutput(inputs[i]);
+//			tab.get(0).setOutput(inputs[i]);
 			temp.addNeuron(new Neuron(tab, true, new Point(pos * distanceBtwNeurons + positionDep, i * distanceBtwNeurons + positionDep)));
 		}
 		
@@ -85,10 +85,11 @@ public class Network
 		for (int i = 0; i < expectedValue.length; i++)
 		{
 			for (int j = 0; j < inputValues[i].length; ++j) {
-				ArrayList<Neuron> input = new ArrayList<>();
-				input.add(new Neuron(null, true, null));
-				input.get(0).setOutput(inputValues[i][j]);
-				layers.get(0).getNeurons().get(j).setInputs(input);
+				//ArrayList<Neuron> input = new ArrayList<>();
+				//input.add(new Neuron(null, true, null));
+				//input.get(0).setOutput(inputValues[i][j]);
+				System.out.println("    inputValues : " + inputValues[i][j]);
+				layers.get(0).getNeurons().get(j).getInputs().get(0).setOutput(inputValues[i][j]);
 			}
 			forwardPropagation(expectedValue[i]);
 			this.outputs[i] = this.output;
@@ -106,23 +107,19 @@ public class Network
 		}
 		
 		this.output = this.layers.get(this.layers.size() - 1).neurons.get(0).getOutput();
-		this.globalError = expectedValue - output;
+		this.globalError = Sigmoide.derivate(output) * (expectedValue - output);
 	}
 	
 	public void backPropagation()
 	{
-		// On établit l'erreur global du network
+		// On établit l'erreur local du dernier neuron
 		this.layers.get(this.layers.size() - 1).neurons.get(0).setLocalError(globalError);
+		this.layers.get(this.layers.size() - 1).neurons.get(0).updatingWeight();
 		
-		// Pour toutes les couches sauf la denrière, on calcul l'erreur local
+		// Pour toutes les couches sauf la dernière, on calcul l'erreur local
 		for (int i = this.layers.size() - 2; i > 0; i--)
 		{
 			this.layers.get(i).computeLocalError(this.layers.get(i+1));
-		}
-		
-		// Mise à jour des poids
-		for (int i = 1; i < this.layers.size(); i++)
-		{
 			this.layers.get(i).updatingWeights();
 		}
 	}

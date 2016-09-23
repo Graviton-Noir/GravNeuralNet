@@ -13,7 +13,10 @@ public class Neuron extends JPanel
 {
 	// Les inputs de la couche précédente
 	//public double inputs[];
+	
 	private ArrayList<Neuron> inputs;
+	
+	// Les synapses sont derrière les neurones dans cette version
 	private ArrayList<Double> synapses; // Ou poids
 	
 	private double localError = 0;
@@ -59,35 +62,39 @@ public class Neuron extends JPanel
 	}
 	
 	private double computeSum() 
-	{
+	{	
 		double sumInputs = 0;
 		for (int i = 0; i < inputs.size(); i++)
-			sumInputs += inputs.get(i).getOutput() * synapses.get(i);
+			sumInputs += inputs.get(i).output * synapses.get(i);
 		
 		return sumInputs;
 	}
 	
 	public double getOutput() 
-	{
-		if (this.isInput) {
-			System.out.println("output : " + this.output);
-			return inputs.get(0).getRawOutput();
-		}
+	{	
+		System.out.println("output : " + this.output);
 		
-		if (inputs == null)
+		if (this.isInput)
 			return output;
+		
+//		if (this.isInput) {
+//			return inputs.get(0).output;
+//		}
 
-		return Sigmoide.output(computeSum());
+		output = Sigmoide.output(computeSum());
+		return output;
 	}
 	
 	public double getRawOutput() {
 		return this.output;
 	}
 	
+	// FIXME - il faut récupérer la synapse du neurone de devant
+	//		input.get(i).output -> synapses de devant
 	public void updatingWeight()
 	{
 		for (int i = 0; i < synapses.size(); i++)
-			synapses.set(i, synapses.get(i) + Network.getLearningCoef() * localError * inputs.get(i).getOutput());
+			synapses.set(i, synapses.get(i) + Network.getLearningCoef() * localError * inputs.get(i).output);
 	}
 	
 	public double getLocalError()
@@ -103,8 +110,6 @@ public class Neuron extends JPanel
 	public void setOutput(double output) {
 		this.output = output;
 	}
-	
-	
 	
 	public ArrayList<Double> getSynapses() {
 		return synapses;
@@ -165,7 +170,7 @@ public class Neuron extends JPanel
 	public void paintComponent(Graphics g) {
 		
 		if (this.isInput && inputs.get(0) != null) {
-			g.drawString("" + inputs.get(0).getRawOutput(), position.x - 10, position.y + 10);
+			g.drawString("" + (int) inputs.get(0).getRawOutput(), position.x - 10, position.y + 10);
 		}
 		
 		g.setColor(Color.GREEN);

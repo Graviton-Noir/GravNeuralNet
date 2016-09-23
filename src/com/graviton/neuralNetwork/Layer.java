@@ -41,21 +41,24 @@ public class Layer
 		}
 	}
 	
+	// [SC] FIXME - A revoir
 	public void computeLocalError(Layer forwardLayer)
 	{
-		// Pour chaque neuron de la couche actuelle, on calcul somme les erreurs de la couche suivante
-		for (int i = 0; i < this.neurons.size(); i++)
-		{
-			double newLocalError = 0;
-			
-			//For each neurons of the forward layer
-			for (Neuron forwardNeuron : forwardLayer.neurons)
-			{
-				newLocalError += Sigmoide.derivate(forwardNeuron.getSynapses().get(i)) * network.getGlobalError() * forwardNeuron.getLocalError();
-			}
-			this.neurons.get(i).setLocalError(newLocalError);
-			//System.out.println("...");
-		}
+//		// Pour chaque neuron de la couche actuelle, on calcul somme les erreurs de la couche suivante
+//		for (int i = 0; i < this.neurons.size(); i++)
+//		{
+//			double newLocalError = Sigmoide.derivate(this.neurons.get(i).getOutput()) * forwardLayer.getNeurons().get(index);
+//			
+//			//For each neurons of the forward layer
+//			for (Neuron forwardNeuron : forwardLayer.neurons)
+//			{
+//				newLocalError += Sigmoide.derivate(forwardNeuron.getSynapses().get(i)) * network.getGlobalError() * forwardNeuron.getLocalError();
+//			}
+//			
+//			
+//			this.neurons.get(i).setLocalError(newLocalError);
+//			//System.out.println("...");
+//		}
 	}
 	
 	public void updatingWeights()

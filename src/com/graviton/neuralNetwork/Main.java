@@ -16,7 +16,7 @@ public class Main
 		Network network = new Network(networkStructure, inputs);
 		
 		Interface frame = new Interface(outputValues, network);
-		GraphFrame graph = new GraphFrame(network, ITERATIONS);
+		//GraphFrame graph = new GraphFrame(network, ITERATIONS);
 		
 		int nbIterations = 1;
 		
@@ -25,7 +25,7 @@ public class Main
 			network.train(expectedValues, inputs);
 			
 			frame.display(outputValues);
-			graph.display(nbIterations);
+			//graph.display(nbIterations);
 			
 			System.out.println("--- " + nbIterations);
 			
@@ -35,7 +35,7 @@ public class Main
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} while (network.getGlobalError() < 0.1 && nbIterations++ < ITERATIONS);
+		} while (/*network.getGlobalError() < 0.1 && */nbIterations++ < ITERATIONS);
 	}
 	
 	public static void setOutputValues(double output[])
