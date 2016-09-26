@@ -18,6 +18,7 @@ public class Neuron extends JPanel
 	
 	private double localError = 0;
 	private double output = 0;
+	private double computedSum = 0;
 	
 	private boolean isInput = false;
 
@@ -59,13 +60,13 @@ public class Neuron extends JPanel
 		}
 	}
 	
-	private double computeSum() 
+	private void computeSum() 
 	{
 		double sumInputs = 0;
 		for (int i = 0; i < inputs.size(); i++)
 			sumInputs += inputs.get(i).getOutput() * synapses.get(i);
 		
-		return sumInputs;
+		computedSum = sumInputs;
 	}
 	
 	public double getOutput() 
@@ -76,7 +77,8 @@ public class Neuron extends JPanel
 		if (this.isInput)
 			return inputs.get(0).getRawOutput();
 
-		return Sigmoide.output(computeSum());
+		computeSum();
+		return Sigmoide.output(computedSum);
 	}
 	
 	public double getRawOutput() {
@@ -86,7 +88,8 @@ public class Neuron extends JPanel
 	public void updatingWeight()
 	{
 		for (int i = 0; i < synapses.size(); i++)
-			synapses.set(i, synapses.get(i) + Network.getLearningCoef() * localError * inputs.get(i).getOutput());
+			synapses.set(i, synapses.get(i) + Network.getLearningCoef() * localError * inputs.get(i).getOutput()
+					* Sigmoide.derivate(output));
 	}
 	
 	public double getLocalError()

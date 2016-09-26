@@ -10,7 +10,7 @@ public class Network
 	private double globalError = 0;
 	public double outputs[] = {0, 0, 0, 0};
 	
-	private static final double LEARNING_COEF = 0.02;
+	private static final double LEARNING_COEF = 0.4;
 	
 	private int positionDep = 80;
 	private int distanceBtwNeurons = 20;
