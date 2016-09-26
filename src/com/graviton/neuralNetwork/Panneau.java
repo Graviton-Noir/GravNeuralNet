@@ -46,6 +46,7 @@ public class Panneau extends JPanel
 		g.drawString("Input (1, 0) : " + tab[2], 10, 230);
 		g.drawString("Input (1, 1) : " + tab[3], 10, 245);
 		g.drawString("Global ERROR : " + network.getGlobalError(), 10, 270);
+		System.out.println("GLOBLA ERROR : " + network.getGlobalError());
 		
 		if (network != null) {
 			for (int l = 0; l < network.getLayers().size(); ++l) {

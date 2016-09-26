@@ -59,6 +59,17 @@ public class Layer
 //			this.neurons.get(i).setLocalError(newLocalError);
 //			//System.out.println("...");
 //		}
+		double error;
+		
+		for (int i = 0; i < neurons.size(); ++i) {
+			error = 0;
+			for (int j = 0; j < forwardLayer.getNeurons().size(); ++j) {
+				error += forwardLayer.getNeurons().get(j).getLocalError() *
+						forwardLayer.getNeurons().get(j).getSynapses().get(i);
+			}
+			
+			neurons.get(i).setLocalError(error);
+		}
 	}
 	
 	public void updatingWeights()
