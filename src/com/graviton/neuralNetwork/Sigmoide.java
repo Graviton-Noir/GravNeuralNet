@@ -1,5 +1,10 @@
 package com.graviton.neuralNetwork;
 
+/**
+ * Fonction de seuil ! TODO - mettre la définition exacte
+ * @author cueille
+ *
+ */
 public class Sigmoide {
 	public static double output(double x)
 	{

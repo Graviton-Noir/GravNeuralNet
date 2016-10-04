@@ -37,10 +37,16 @@ public class Layer
 			
 			// Permet un affichage en temps réel de l'écolution des output
 			// Sinon instant et on ne voit rien
-			System.out.println("---");
+			//System.out.println("---");
 		}
 	}
 	
+	/**
+	 * Ici, ce n'est qu'une simple somme de multiplication entre les synapses et les local error
+	 * de la couche suivante. e1 = s2*e2 + s3*e3
+	 * 
+	 * @param forwardLayer
+	 */
 	public void computeLocalError(Layer forwardLayer)
 	{
 		// Pour chaque neuron de la couche actuelle, on calcul somme les erreurs de la couche suivante
@@ -51,10 +57,10 @@ public class Layer
 			//For each neurons of the forward layer
 			for (Neuron forwardNeuron : forwardLayer.neurons)
 			{
-				newLocalError += Sigmoide.derivate(forwardNeuron.getSynapses().get(i)) * network.getGlobalError() * forwardNeuron.getLocalError();
+				newLocalError += forwardNeuron.getSynapses().get(i) * forwardNeuron.getLocalError();
 			}
 			this.neurons.get(i).setLocalError(newLocalError);
-			System.out.println("...");
+			//System.out.println("...");
 		}
 	}
 	

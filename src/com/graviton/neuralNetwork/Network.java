@@ -10,7 +10,7 @@ public class Network
 	private double globalError = 0;
 	public double outputs[] = {0, 0, 0, 0};
 	
-	private static final double LEARNING_COEF = 0.4;
+	private static final double LEARNING_COEF = 0.5;
 	
 	private int positionDep = 80;
 	private int distanceBtwNeurons = 20;
@@ -80,16 +80,26 @@ public class Network
 	 * 	ACTION FONCTIONS
 	 */
 	
-	public void train(double expectedValue[], double inputValues[][])
+	public void train(double expectedValue[], double inputValues[][], Interface frame, double outputValues[])
 	{
 		for (int i = 0; i < expectedValue.length; i++)
 		{
+//			try {
+//				Thread.sleep(10);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+			
 			for (int j = 0; j < inputValues[i].length; ++j) {
 				ArrayList<Neuron> input = new ArrayList<>();
 				input.add(new Neuron(null, true, null));
 				input.get(0).setOutput(inputValues[i][j]);
 				layers.get(0).getNeurons().get(j).setInputs(input);
 			}
+			
+			// TODO - refresh display
+			frame.display(outputValues);
+			
 			forwardPropagation(expectedValue[i]);
 			this.outputs[i] = this.output;
 			backPropagation();
@@ -114,7 +124,7 @@ public class Network
 		// On établit l'erreur global du network
 		this.layers.get(this.layers.size() - 1).neurons.get(0).setLocalError(globalError);
 		
-		// Pour toutes les couches sauf la denrière, on calcul l'erreur local
+		// Pour toutes les couches sauf la dernière, on calcul l'erreur local
 		for (int i = this.layers.size() - 2; i > 0; i--)
 		{
 			this.layers.get(i).computeLocalError(this.layers.get(i+1));
@@ -161,6 +171,6 @@ public class Network
 
 
 	public void displayNetwork() {
-		
+		// lol
 	}
 }

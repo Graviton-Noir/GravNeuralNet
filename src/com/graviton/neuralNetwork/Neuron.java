@@ -166,7 +166,7 @@ public class Neuron extends JPanel
 	
 	public void paintComponent(Graphics g) {
 		
-		if (this.isInput) {
+		if (this.isInput && inputs != null) {
 			g.drawString("" + (int) inputs.get(0).getRawOutput(), position.x - 10, position.y + 10);
 		}
 		

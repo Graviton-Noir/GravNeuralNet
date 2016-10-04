@@ -21,10 +21,13 @@ public class Main
 		
 		do
 		{
-			network.train(expectedValues, inputs);
 			
-			frame.display(outputValues);
-		} while (network.getGlobalError() < 0.1 && nbIterations++ < ITERATIONS);
+			network.train(expectedValues, inputs, frame, outputValues);
+			
+			// [SC] - Le refresh ce fait dans la boucle train
+//			frame.display(outputValues);
+		} while ((network.getGlobalError() > 0.1 || network.getGlobalError() < -0.1) &&
+				nbIterations++ < ITERATIONS);
 	}
 	
 	public static void setOutputValues(double output[])
