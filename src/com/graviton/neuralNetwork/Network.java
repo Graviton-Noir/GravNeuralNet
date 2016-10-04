@@ -10,7 +10,7 @@ public class Network
 	private double globalError = 0;
 	public double outputs[] = {0, 0, 0, 0};
 	
-	private static final double LEARNING_COEF = 0.5;
+	private static final double LEARNING_COEF = 0.08;
 	
 	private int positionDep = 80;
 	private int distanceBtwNeurons = 20;
@@ -45,10 +45,6 @@ public class Network
 		
 		for (int i = 0; i < inputs.length; i++)
 		{
-			// Utilisation d'un tableau pour simplification des calculs
-//			ArrayList<Neuron> tab = new ArrayList<Neuron>();
-//			tab.add(new Neuron(null, false, null));
-//			tab.get(0).setOutput(inputs[i]);
 			temp.addNeuron(new Neuron(null, true, new Point(pos * distanceBtwNeurons + positionDep, i * distanceBtwNeurons + positionDep)));
 		}
 		
@@ -59,7 +55,6 @@ public class Network
 	{
 		Layer newLayer = new Layer(this);
 		
-		// Ajout du nombre de neuron correspondant
 		for (int i = 0; i < tailleLayer; i++) {
 			newLayer.addNeuron(new Neuron(layers.get(layers.size() - 1).getNeurons(), false, new Point(pos * distanceBtwNeurons + positionDep, i * distanceBtwNeurons + positionDep)));
 		}
@@ -84,11 +79,11 @@ public class Network
 	{
 		for (int i = 0; i < expectedValue.length; i++)
 		{
-//			try {
-//				Thread.sleep(10);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			
 			for (int j = 0; j < inputValues[i].length; ++j) {
 				ArrayList<Neuron> input = new ArrayList<>();
@@ -112,7 +107,7 @@ public class Network
 	{
 		for (int i = 1; i < this.layers.size(); i++)
 		{
-			this.layers.get(i).injectionInputsInCurrentLayer(this.layers.get(i-1));
+			this.layers.get(i).computeOutput();
 		}
 		
 		this.output = this.layers.get(this.layers.size() - 1).neurons.get(0).getOutput();

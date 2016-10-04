@@ -23,18 +23,13 @@ public class Layer
 		this.neurons.remove(this.neurons.size() - 1);
 	}
 	
-	public void injectionInputsInCurrentLayer(Layer previousLayer)
+	public void computeOutput()
 	{
-		ArrayList<Neuron> neuronPreviousLayer = previousLayer.neurons;
-		
 		// Pour chaque neuron dans la couche actuelle on leur inject en entrée les outputs des neurons de la couche précédente
-		for (Neuron currentNeuron : neurons)
+		for (Neuron neuron : neurons)
 		{
-			for (int i = 0; i < neuronPreviousLayer.size(); i++)
-			{
-				currentNeuron.getInputs().set(i, neuronPreviousLayer.get(i));
-			}
 			
+			neuron.computeOutput();
 			// Permet un affichage en temps réel de l'écolution des output
 			// Sinon instant et on ne voit rien
 			//System.out.println("---");

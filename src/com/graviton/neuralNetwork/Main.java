@@ -6,7 +6,7 @@ public class Main
 	static double expectedValues[] = {0, 1, 1, 0};
 	static double outputValues[] = {0.0d, 0.0d, 0.0d, 0.0d};
 	//One hidden layer with 3 neurons, could be {3, 3} : 2 layers with 3 neurons
-	static int networkStructure[] = {2, 2, 1};
+	static int networkStructure[] = {2, 3, 1};
 	
 	static final int ITERATIONS = 10000;
 	
