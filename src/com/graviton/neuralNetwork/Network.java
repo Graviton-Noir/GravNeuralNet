@@ -86,16 +86,15 @@ public class Network
 			}
 			
 			for (int j = 0; j < inputValues[i].length; ++j) {
-				ArrayList<Neuron> input = new ArrayList<>();
-				input.add(new Neuron(null, true, null));
-				input.get(0).setOutput(inputValues[i][j]);
-				layers.get(0).getNeurons().get(j).setInputs(input);
+				layers.get(0).getNeurons().get(j).setOutput(inputValues[i][j]);
 			}
 			
-			// TODO - refresh display
+			// refresh display
 			frame.display(outputValues);
 			
 			forwardPropagation(expectedValue[i]);
+			
+			// [SC] - ça c'est pour l'affichage de chaque sortie
 			this.outputs[i] = this.output;
 			backPropagation();
 		}
@@ -120,13 +119,13 @@ public class Network
 		this.layers.get(this.layers.size() - 1).neurons.get(0).setLocalError(globalError);
 		
 		// Pour toutes les couches sauf la dernière, on calcul l'erreur local
-		for (int i = this.layers.size() - 2; i > 0; i--)
+		for (int i = this.layers.size() - 2; i > 0; --i)
 		{
 			this.layers.get(i).computeLocalError(this.layers.get(i+1));
 		}
 		
 		// Mise à jour des poids
-		for (int i = 1; i < this.layers.size(); i++)
+		for (int i = 1; i < this.layers.size(); ++i)
 		{
 			this.layers.get(i).updatingWeights();
 		}

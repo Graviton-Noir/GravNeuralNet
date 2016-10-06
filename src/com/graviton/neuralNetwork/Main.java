@@ -24,8 +24,12 @@ public class Main
 			
 			network.train(expectedValues, inputs, frame, outputValues);
 			
-			// [SC] - Le refresh ce fait dans la boucle train
-//			frame.display(outputValues);
+//			try {
+//				Thread.sleep(10000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		} while ((network.getGlobalError() > 0.1 || network.getGlobalError() < -0.1) &&
 				nbIterations++ < ITERATIONS);
 	}
