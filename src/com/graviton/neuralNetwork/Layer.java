@@ -23,52 +23,38 @@ public class Layer
 		this.neurons.remove(this.neurons.size() - 1);
 	}
 	
-	public void injectionInputsInCurrentLayer(Layer previousLayer)
+	public void computeOutput()
 	{
-		ArrayList<Neuron> neuronPreviousLayer = previousLayer.neurons;
-		
 		// Pour chaque neuron dans la couche actuelle on leur inject en entrée les outputs des neurons de la couche précédente
-		for (Neuron currentNeuron : neurons)
+		for (Neuron neuron : neurons)
 		{
-			for (int i = 0; i < neuronPreviousLayer.size(); i++)
-			{
-				currentNeuron.getInputs().set(i, neuronPreviousLayer.get(i));
-			}
 			
+			neuron.computeOutput();
 			// Permet un affichage en temps réel de l'écolution des output
 			// Sinon instant et on ne voit rien
 			// System.out.println("---");
 		}
 	}
-	
-	// [SC] FIXME - A revoir
+	/**
+	 * Ici, ce n'est qu'une simple somme de multiplication entre les synapses et les local error
+	 * de la couche suivante. e1 = s2*e2 + s3*e3
+	 * 
+	 * @param forwardLayer
+	 */
 	public void computeLocalError(Layer forwardLayer)
 	{
-//		// Pour chaque neuron de la couche actuelle, on calcul somme les erreurs de la couche suivante
-//		for (int i = 0; i < this.neurons.size(); i++)
-//		{
-//			double newLocalError = Sigmoide.derivate(this.neurons.get(i).getOutput()) * forwardLayer.getNeurons().get(index);
-//			
-//			//For each neurons of the forward layer
-//			for (Neuron forwardNeuron : forwardLayer.neurons)
-//			{
-//				newLocalError += Sigmoide.derivate(forwardNeuron.getSynapses().get(i)) * network.getGlobalError() * forwardNeuron.getLocalError();
-//			}
-//			
-//			
-//			this.neurons.get(i).setLocalError(newLocalError);
-//			//System.out.println("...");
-//		}
-		double error;
-		
-		for (int i = 0; i < neurons.size(); ++i) {
-			error = 0;
-			for (int j = 0; j < forwardLayer.getNeurons().size(); ++j) {
-				error += forwardLayer.getNeurons().get(j).getLocalError() *
-						forwardLayer.getNeurons().get(j).getSynapses().get(i);
-			}
+		// Pour chaque neuron de la couche actuelle, on calcul somme les erreurs de la couche suivante
+		for (int i = 0; i < this.neurons.size(); i++)
+		{
+			double newLocalError = 0;
 			
-			neurons.get(i).setLocalError(error);
+			//For each neurons of the forward layer
+			for (Neuron forwardNeuron : forwardLayer.neurons)
+			{
+				newLocalError += forwardNeuron.getSynapses().get(i) * forwardNeuron.getLocalError();
+			}
+			this.neurons.get(i).setLocalError(newLocalError);
+			//System.out.println("...");
 		}
 	}
 	

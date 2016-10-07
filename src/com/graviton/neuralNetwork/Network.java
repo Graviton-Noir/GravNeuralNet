@@ -10,7 +10,7 @@ public class Network
 	private double globalError = 0;
 	public double outputs[] = {0, 0, 0, 0};
 	
-	private static final double LEARNING_COEF = 0.4;
+	private static final double LEARNING_COEF = 0.2;
 	
 	private int positionDep = 80;
 	private int distanceBtwNeurons = 20;
@@ -45,11 +45,7 @@ public class Network
 		
 		for (int i = 0; i < inputs.length; i++)
 		{
-			// Utilisation d'un tableau pour simplification des calculs
-			ArrayList<Neuron> tab = new ArrayList<Neuron>();
-			tab.add(new Neuron(null, false, null));
-//			tab.get(0).setOutput(inputs[i]);
-			temp.addNeuron(new Neuron(tab, true, new Point(pos * distanceBtwNeurons + positionDep, i * distanceBtwNeurons + positionDep)));
+			temp.addNeuron(new Neuron(null, true, new Point(pos * distanceBtwNeurons + positionDep, i * distanceBtwNeurons + positionDep)));
 		}
 		
 		layers.add(temp);
@@ -59,7 +55,6 @@ public class Network
 	{
 		Layer newLayer = new Layer(this);
 		
-		// Ajout du nombre de neuron correspondant
 		for (int i = 0; i < tailleLayer; i++) {
 			newLayer.addNeuron(new Neuron(layers.get(layers.size() - 1).getNeurons(), false, new Point(pos * distanceBtwNeurons + positionDep, i * distanceBtwNeurons + positionDep)));
 		}
@@ -80,18 +75,26 @@ public class Network
 	 * 	ACTION FONCTIONS
 	 */
 	
-	public void train(double expectedValue[], double inputValues[][])
+	public void train(double expectedValue[], double inputValues[][], Interface frame, double outputValues[])
 	{
 		for (int i = 0; i < expectedValue.length; i++)
 		{
+//			try {
+//				Thread.sleep(10);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+			
 			for (int j = 0; j < inputValues[i].length; ++j) {
-				//ArrayList<Neuron> input = new ArrayList<>();
-				//input.add(new Neuron(null, true, null));
-				//input.get(0).setOutput(inputValues[i][j]);
-				System.out.println("    inputValues : " + inputValues[i][j]);
-				layers.get(0).getNeurons().get(j).getInputs().get(0).setOutput(inputValues[i][j]);
+				layers.get(0).getNeurons().get(j).setOutput(inputValues[i][j]);
 			}
+			
+//			// refresh display
+//			frame.display(outputValues);
+			
 			forwardPropagation(expectedValue[i]);
+			
+			// [SC] - ça c'est pour l'affichage de chaque sortie
 			this.outputs[i] = this.output;
 			backPropagation();
 		}
@@ -103,7 +106,7 @@ public class Network
 	{
 		for (int i = 1; i < this.layers.size(); i++)
 		{
-			this.layers.get(i).injectionInputsInCurrentLayer(this.layers.get(i-1));
+			this.layers.get(i).computeOutput();
 		}
 		
 		this.output = this.layers.get(this.layers.size() - 1).neurons.get(0).getOutput();
@@ -115,15 +118,17 @@ public class Network
 		// On établit l'erreur local du dernier neuron (Autrement dit, avec l'erreur globale)
 		this.layers.get(this.layers.size() - 1).neurons.get(0).setLocalError(globalError);
 		
-		// Pour toutes les couches sauf la dernière et la premiere, on calcul l'erreur local
-		for (int i = this.layers.size() - 2; i > 0; i--)
+
+		// Pour toutes les couches sauf la dernière, on calcul l'erreur local
+		for (int i = this.layers.size() - 2; i > 0; --i)
+		{
 			this.layers.get(i).computeLocalError(this.layers.get(i+1));
+		}
 		
-		// Une fois toutes les erreurs mises à jour, on mets à jours les synapses
-		for (int i = 1; i < layers.size(); ++i) {
-			for (int j = 0; j < layers.get(i).getNeurons().size(); ++j) {
-				layers.get(i).getNeurons().get(j).updatingWeight();
-			}
+		// Mise à jour des poids
+		for (int i = 1; i < this.layers.size(); ++i)
+		{
+			this.layers.get(i).updatingWeights();
 		}
 	}
 	
@@ -161,6 +166,6 @@ public class Network
 
 
 	public void displayNetwork() {
-		
+		// lol
 	}
 }

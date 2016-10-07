@@ -53,9 +53,12 @@ public class Neuron extends JPanel
 			{
 				double temp = 0;
 				
+				// [SC] - On établi les synapses entre [0.1, 0.9[ \ [4.5, 5.5[
 				do {
-					temp = -0.7d + Math.random() * 1.4d;
-				} while (temp > -0.3 && temp < 0.3);
+					temp = 0.1d + Math.random() * 0.8d;
+				} while (temp > 0.45 && temp < 0.55);
+				
+				System.out.println("Synapse  : " + temp);
 				
 				synapses.add(temp);
 			}
@@ -63,7 +66,7 @@ public class Neuron extends JPanel
 	}
 	
 	private void computeSum() 
-	{	
+	{
 		double sumInputs = 0;
 		for (int i = 0; i < inputs.size(); i++)
 			sumInputs += inputs.get(i).output * synapses.get(i);
@@ -72,31 +75,26 @@ public class Neuron extends JPanel
 	}
 	
 	public double getOutput() 
-	{	
-		System.out.println("output : " + this.output);
-		
-		if (this.isInput)
-			return output;
-		
-//		if (this.isInput) {
-//			return inputs.get(0).output;
-//		}
-
-		output = Sigmoide.output(computedSum);
+	{
 		return output;
 	}
 	
-	public double getRawOutput() {
-		return this.output;
+	public void computeOutput() {
+		computeSum();
+		output = Sigmoide.output(computedSum);
 	}
 	
 	// FIXME - il faut récupérer la synapse du neurone de devant
 	//		input.get(i).output -> synapses de devant
 	public void updatingWeight()
 	{
-		for (int i = 0; i < synapses.size(); i++)
-			synapses.set(i, synapses.get(i) +
-					Network.getLearningCoef() * localError * Sigmoide.derivate(computedSum) * inputs.get(i).getOutput());
+		for (int i = 0; i < synapses.size(); i++) {
+			
+//			System.out.println("Output : " + inputs.get(i).getOutput());
+			
+			synapses.set(i, synapses.get(i) + Network.getLearningCoef() * localError * inputs.get(i).getOutput()
+					* Sigmoide.derivate(output));
+		}
 	}
 	
 	public double getLocalError()
@@ -171,8 +169,8 @@ public class Neuron extends JPanel
 	
 	public void paintComponent(Graphics g) {
 		
-		if (this.isInput && inputs.get(0) != null) {
-			g.drawString("" + (int) inputs.get(0).getRawOutput(), position.x - 10, position.y + 10);
+		if (this.isInput && inputs != null) {
+			g.drawString("" + (int) inputs.get(0).getOutput(), position.x - 10, position.y + 10);
 		}
 		
 		g.setColor(Color.GREEN);
