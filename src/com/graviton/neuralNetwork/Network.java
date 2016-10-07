@@ -79,18 +79,18 @@ public class Network
 	{
 		for (int i = 0; i < expectedValue.length; i++)
 		{
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				Thread.sleep(10);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 			
 			for (int j = 0; j < inputValues[i].length; ++j) {
 				layers.get(0).getNeurons().get(j).setOutput(inputValues[i][j]);
 			}
 			
-			// refresh display
-			frame.display(outputValues);
+//			// refresh display
+//			frame.display(outputValues);
 			
 			forwardPropagation(expectedValue[i]);
 			
