@@ -110,7 +110,7 @@ public class Network
 		}
 		
 		this.output = this.layers.get(this.layers.size() - 1).neurons.get(0).getOutput();
-		this.globalError = Sigmoide.derivate(output) * (expectedValue - output);
+		this.globalError = expectedValue - output;
 	}
 	
 	public void backPropagation()

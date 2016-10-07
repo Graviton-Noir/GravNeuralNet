@@ -35,11 +35,12 @@ public class GraphPanel extends JPanel {
 	
 	public void updateGraph(int iteration) {
 		point = computePoint(iteration, network.getGlobalError(), 1);
+		line.add(point);
 	}
 	
 	private Point computePoint(int iteration, double error, double errorMax) {
-		Point pt = new Point(origin.x + (iteration / iterationMax) * width,
-				(int) (origin.y + (error / errorMax) * height / 2));
+		Point pt = new Point(origin.x + (iteration),
+				(int) (origin.y + (error) * height / 2));
 		return pt;
 	}
 	
@@ -78,6 +79,7 @@ public class GraphPanel extends JPanel {
 	
 	/**
 	 * Dessine un point sur l'ecran, ce pas utiliser s'il y a effacement d'écran
+	 * Ex: quand on modifie la taille de la fenêtre : seul un point est dessiné, donc tout le reste de la ligne est effacé
 	 * @param g
 	 * @param point
 	 */
@@ -90,6 +92,6 @@ public class GraphPanel extends JPanel {
 	
 	public void paintComponent(Graphics g) {
 		displayRepere(g, width, height);
-		drawPoint(g, point);
+		drawLine(g);
 	}
 }
