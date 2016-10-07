@@ -83,17 +83,13 @@ public class Neuron extends JPanel
 		computeSum();
 		output = Sigmoide.output(computedSum);
 	}
-	
-	// FIXME - il faut récupérer la synapse du neurone de devant
-	//		input.get(i).output -> synapses de devant
+
+	// [SC] - Synapses checké !
 	public void updatingWeight()
 	{
 		for (int i = 0; i < synapses.size(); i++) {
-			
-//			System.out.println("Output : " + inputs.get(i).getOutput());
-			
-			synapses.set(i, synapses.get(i) + Network.getLearningCoef() * localError * inputs.get(i).getOutput()
-					* Sigmoide.derivate(output));
+			synapses.set(i, synapses.get(i) + (Network.getLearningCoef() * localError * inputs.get(i).getOutput()
+					* Sigmoide.derivate(output)));
 		}
 	}
 	

@@ -28,11 +28,7 @@ public class Layer
 		// Pour chaque neuron dans la couche actuelle on leur inject en entrée les outputs des neurons de la couche précédente
 		for (Neuron neuron : neurons)
 		{
-			
 			neuron.computeOutput();
-			// Permet un affichage en temps réel de l'écolution des output
-			// Sinon instant et on ne voit rien
-			// System.out.println("---");
 		}
 	}
 	/**
@@ -44,9 +40,11 @@ public class Layer
 	public void computeLocalError(Layer forwardLayer)
 	{
 		// Pour chaque neuron de la couche actuelle, on calcul somme les erreurs de la couche suivante
+		double newLocalError;
+		
 		for (int i = 0; i < this.neurons.size(); i++)
 		{
-			double newLocalError = 0;
+			newLocalError = 0;
 			
 			//For each neurons of the forward layer
 			for (Neuron forwardNeuron : forwardLayer.neurons)
@@ -54,7 +52,6 @@ public class Layer
 				newLocalError += forwardNeuron.getSynapses().get(i) * forwardNeuron.getLocalError();
 			}
 			this.neurons.get(i).setLocalError(newLocalError);
-			//System.out.println("...");
 		}
 	}
 	

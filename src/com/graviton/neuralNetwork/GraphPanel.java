@@ -39,7 +39,7 @@ public class GraphPanel extends JPanel {
 	}
 	
 	private Point computePoint(int iteration, double error, double errorMax) {
-		Point pt = new Point(origin.x + (iteration),
+		Point pt = new Point(origin.x + (iteration) * width / iterationMax,
 				(int) (origin.y + (error) * height / 2));
 		return pt;
 	}

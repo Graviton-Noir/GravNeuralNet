@@ -6,9 +6,9 @@ public class Main
 	static double expectedValues[] = {0, 1, 1, 0};
 	static double outputValues[] = {0.0d, 0.0d, 0.0d, 0.0d};
 	//One hidden layer with 3 neurons, could be {3, 3} : 2 layers with 3 neurons
-	static int networkStructure[] = {2, 5, 1};
+	static int networkStructure[] = {2, 2, 1};
 	
-	static final int ITERATIONS = 10000;
+	static final int ITERATIONS = 4000;
 	
 	public static void main(String[] args) 
 	{
@@ -25,15 +25,15 @@ public class Main
 			
 			network.train(expectedValues, inputs, frame, outputValues);
 			
-			frame.display(outputValues);
+//			frame.display(outputValues);
 			graph.display(nbIterations);
 			
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			try {
+//				Thread.sleep(10);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		} while ((network.getGlobalError() > 0.1 || network.getGlobalError() < -0.1) &&
 				nbIterations++ < ITERATIONS);
 	}

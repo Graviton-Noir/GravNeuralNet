@@ -10,7 +10,7 @@ public class Network
 	private double globalError = 0;
 	public double outputs[] = {0, 0, 0, 0};
 	
-	private static final double LEARNING_COEF = 0.2;
+	private static final double LEARNING_COEF = 0.5;
 	
 	private int positionDep = 80;
 	private int distanceBtwNeurons = 20;
@@ -80,7 +80,7 @@ public class Network
 		for (int i = 0; i < expectedValue.length; i++)
 		{
 //			try {
-//				Thread.sleep(10);
+//				Thread.sleep(100);
 //			} catch (InterruptedException e) {
 //				e.printStackTrace();
 //			}
@@ -89,10 +89,11 @@ public class Network
 				layers.get(0).getNeurons().get(j).setOutput(inputValues[i][j]);
 			}
 			
-//			// refresh display
-//			frame.display(outputValues);
-			
 			forwardPropagation(expectedValue[i]);
+			
+			// refresh display
+			frame.display(outputValues);
+						
 			
 			// [SC] - ça c'est pour l'affichage de chaque sortie
 			this.outputs[i] = this.output;
