@@ -10,7 +10,7 @@ public class Network
 	private double globalError = 0;
 	public double outputs[] = {0, 0, 0, 0};
 	
-	private static final double LEARNING_COEF = 0.5;
+	private static final double LEARNING_COEF = 0.1;
 	
 	private int positionDep = 80;
 	private int distanceBtwNeurons = 20;
@@ -80,7 +80,7 @@ public class Network
 		for (int i = 0; i < expectedValue.length; i++)
 		{
 //			try {
-//				Thread.sleep(100);
+//				Thread.sleep(10);
 //			} catch (InterruptedException e) {
 //				e.printStackTrace();
 //			}

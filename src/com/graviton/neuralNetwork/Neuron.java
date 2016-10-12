@@ -56,9 +56,7 @@ public class Neuron extends JPanel
 				// [SC] - On établi les synapses entre [0.1, 0.9[ \ [4.5, 5.5[
 				do {
 					temp = 0.1d + Math.random() * 0.8d;
-				} while (temp > 0.45 && temp < 0.55);
-				
-				System.out.println("Synapse  : " + temp);
+				} while (temp > 0.40 && temp < 0.60);
 				
 				synapses.add(temp);
 			}
@@ -89,7 +87,7 @@ public class Neuron extends JPanel
 	{
 		for (int i = 0; i < synapses.size(); i++) {
 			synapses.set(i, synapses.get(i) + (Network.getLearningCoef() * localError * inputs.get(i).getOutput()
-					* Sigmoide.derivate(output)));
+					* Sigmoide.derivate(computedSum)));
 		}
 	}
 	
