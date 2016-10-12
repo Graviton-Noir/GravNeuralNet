@@ -38,14 +38,15 @@ public class Network
 		}
 	}
 	
-	// [SC] TODO - REVOIR LA MISE EN PLACE DES NEURONES
 	public void addFirstLayer(double inputs[], int pos)
 	{
 		Layer temp = new Layer(this);
 		
 		for (int i = 0; i < inputs.length; i++)
 		{
-			temp.addNeuron(new Neuron(null, true, new Point(pos * distanceBtwNeurons + positionDep, i * distanceBtwNeurons + positionDep)));
+			temp.addNeuron(new Neuron(null, true,
+					new Point(pos * distanceBtwNeurons +positionDep,
+							i * distanceBtwNeurons + positionDep)));
 		}
 		
 		layers.add(temp);
@@ -56,7 +57,10 @@ public class Network
 		Layer newLayer = new Layer(this);
 		
 		for (int i = 0; i < tailleLayer; i++) {
-			newLayer.addNeuron(new Neuron(layers.get(layers.size() - 1).getNeurons(), false, new Point(pos * distanceBtwNeurons + positionDep, i * distanceBtwNeurons + positionDep)));
+			newLayer.addNeuron(
+					new Neuron(layers.get(layers.size() - 1).getNeurons(),
+							false, new Point(pos * distanceBtwNeurons + positionDep,
+									i * distanceBtwNeurons + positionDep)));
 		}
 		
 		this.layers.add(newLayer);
@@ -66,7 +70,9 @@ public class Network
 	{
 		Layer newLayer = new Layer(this);
 		
-		newLayer.addNeuron(new Neuron(layers.get(layers.size() - 1).getNeurons(), false, new Point(pos * distanceBtwNeurons + positionDep, distanceBtwNeurons + positionDep)));
+		newLayer.addNeuron(new Neuron(layers.get(layers.size() - 1).getNeurons(),
+				false, new Point(pos * distanceBtwNeurons + positionDep,
+						distanceBtwNeurons + positionDep)));
 		
 		this.layers.add(newLayer);
 	}

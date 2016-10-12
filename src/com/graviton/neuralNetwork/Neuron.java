@@ -53,7 +53,7 @@ public class Neuron extends JPanel
 			{
 				double temp = 0;
 				
-				// [SC] - On établi les synapses entre [0.1, 0.9[ \ [4.5, 5.5[
+				// [SC] - On établi les synapses entre [0.1, 0.9[ \ ]4.0, 6.0[
 				do {
 					temp = 0.1d + Math.random() * 0.8d;
 				} while (temp > 0.40 && temp < 0.60);
@@ -82,7 +82,6 @@ public class Neuron extends JPanel
 		output = Sigmoide.output(computedSum);
 	}
 
-	// [SC] - Synapses checké !
 	public void updatingWeight()
 	{
 		for (int i = 0; i < synapses.size(); i++) {
@@ -158,13 +157,15 @@ public class Neuron extends JPanel
 		g.drawRect(rectangle.x + x, rectangle.y + y,
 				rectangle.width, rectangle.height);
 		
-		g.drawString("" + output , rectangle.x + x + rectangle.width / 6, rectangle.y + y + rectangle.height / 2);
+		g.drawString("" + output , rectangle.x + x + rectangle.width / 6,
+				rectangle.y + y + rectangle.height / 2);
 	}
 	
 	public void paintComponent(Graphics g) {
 		
 		if (this.isInput && inputs != null) {
-			g.drawString("" + (int) inputs.get(0).getOutput(), position.x - 10, position.y + 10);
+			g.drawString("" + (int) inputs.get(0).getOutput(), position.x - 10,
+					position.y + 10);
 		}
 		
 		g.setColor(Color.GREEN);
@@ -173,7 +174,9 @@ public class Neuron extends JPanel
 		if (inputs != null) {
 			for (int i = 0; i < inputs.size(); ++i) {
 				if (inputs.get(i).getPosition() != null)
-					g.drawLine(position.x + 5 , position.y + 5, inputs.get(i).getPosition().x + 5, inputs.get(i).getPosition().y + 5);
+					g.drawLine(position.x + 5 , position.y + 5,
+							inputs.get(i).getPosition().x + 5,
+							inputs.get(i).getPosition().y + 5);
 			}
 		}
 		

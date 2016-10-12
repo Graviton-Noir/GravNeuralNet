@@ -10,8 +10,7 @@ public class Main
 	
 	static final int ITERATIONS = 20000;
 	
-	public static void main(String[] args) 
-	{
+	public static void main(String[] args) {
 		
 		Network network = new Network(networkStructure, inputs);
 		
@@ -20,16 +19,15 @@ public class Main
 		
 		int nbIterations = 1;
 		
-		do
-		{
-			
+		do {
 			network.train(expectedValues, inputs, frame, outputValues);
 			
 //			frame.display(outputValues);
 			graph.display(nbIterations);
 			
+			// [SC] - Décommenter pour voir au ralenti l'évolution du réseau
 //			try {
-//				Thread.sleep(10);
+//				Thread.sleep(1);
 //			} catch (InterruptedException e) {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
