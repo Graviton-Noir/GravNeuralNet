@@ -8,32 +8,29 @@ public class Network
 	private ArrayList<Layer> layers = new ArrayList<Layer>();
 	private double output = 0;
 	private double globalError = 0;
-	public double outputs[] = {0, 0, 0, 0};
+	//public double outputs[] = {0, 0, 0, 0};
 	
 	private static final double LEARNING_COEF = 0.1;
 	
-	private int positionDep = 80;
-	private int distanceBtwNeurons = 20;
+	//private int positionDep = 80;
+	//private int distanceBtwNeurons = 20;
 	
 	public Network(int networkStructure[], double inputs[][]) 
 	{
-		System.out.println("Création network...");
+		//System.out.println("Création network...");
 		for (int i = 0; i < networkStructure.length; i++)
 		{			
 			if (i == 0)
 			{
 				this.addFirstLayer(inputs[i], i);
-				System.out.println("Ajout first layer...");
 			}
 			else if (i == networkStructure.length - 1)
 			{
 				this.addLastLayer(i);
-				System.out.println("Ajout last layer...");
 			}
 			else 
 			{
 				this.addHiddenLayer(networkStructure[i], i);
-				System.out.println("Ajout hidden layer...");
 			}
 		}
 	}
@@ -44,9 +41,9 @@ public class Network
 		
 		for (int i = 0; i < inputs.length; i++)
 		{
-			temp.addNeuron(new Neuron(null, true,
-					new Point(pos * distanceBtwNeurons +positionDep,
-							i * distanceBtwNeurons + positionDep)));
+			temp.addNeuron(new Neuron(null, true));
+//					new Point(pos * distanceBtwNeurons +positionDep,
+//							i * distanceBtwNeurons + positionDep)));
 		}
 		
 		layers.add(temp);
@@ -58,9 +55,8 @@ public class Network
 		
 		for (int i = 0; i < tailleLayer; i++) {
 			newLayer.addNeuron(
-					new Neuron(layers.get(layers.size() - 1).getNeurons(),
-							false, new Point(pos * distanceBtwNeurons + positionDep,
-									i * distanceBtwNeurons + positionDep)));
+					new Neuron(layers.get(layers.size() - 1).getNeurons(),false)); 
+					//new Point(pos * distanceBtwNeurons + positionDep, i * distanceBtwNeurons + positionDep)));
 		}
 		
 		this.layers.add(newLayer);
@@ -70,9 +66,8 @@ public class Network
 	{
 		Layer newLayer = new Layer(this);
 		
-		newLayer.addNeuron(new Neuron(layers.get(layers.size() - 1).getNeurons(),
-				false, new Point(pos * distanceBtwNeurons + positionDep,
-						distanceBtwNeurons + positionDep)));
+		newLayer.addNeuron(new Neuron(layers.get(layers.size() - 1).getNeurons(), false));
+//		, new Point(pos * distanceBtwNeurons + positionDep, distanceBtwNeurons + positionDep)));
 		
 		this.layers.add(newLayer);
 	}
@@ -85,12 +80,6 @@ public class Network
 	{
 		for (int i = 0; i < expectedValue.length; i++)
 		{
-//			try {
-//				Thread.sleep(10);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-			
 			for (int j = 0; j < inputValues[i].length; ++j) {
 				layers.get(0).getNeurons().get(j).setOutput(inputValues[i][j]);
 			}
@@ -102,11 +91,11 @@ public class Network
 						
 			
 			// [SC] - ça c'est pour l'affichage de chaque sortie
-			this.outputs[i] = this.output;
+			// this.outputs[i] = this.output;
 			backPropagation();
 		}
 		
-		Main.setOutputValues(outputs);
+		//Main.setOutputValues(outputs);
 	}
 	
 	public void forwardPropagation(double expectedValue)
@@ -155,6 +144,7 @@ public class Network
 	
 	static public double getLearningCoef()
 	{
+		// TODO [SC] - go random
 		return LEARNING_COEF;
 	}
 	
@@ -164,15 +154,5 @@ public class Network
 
 	public void setLayers(ArrayList<Layer> layers) {
 		this.layers = layers;
-	}
-	
-	/*
-	 * 		GRAPHICAL PART
-	 */
-	
-
-
-	public void displayNetwork() {
-		// lol
 	}
 }

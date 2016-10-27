@@ -28,15 +28,15 @@ public class Neuron extends JPanel
 	private Rectangle rectangle;
 	private Point position;
 	
-	public Neuron(ArrayList<Neuron> inputs, Boolean isInput, Point position) 
+	public Neuron(ArrayList<Neuron> inputs, Boolean isInput/*, Point position*/) 
 	{
 		this.inputs = inputs;
 		this.isInput = isInput;
 
 		// Graphical part - begin
 		
-		rectangle = new Rectangle(new Dimension(80, 30));
-		this.position = position;
+		//rectangle = new Rectangle(new Dimension(80, 30));
+		//this.position = position;
 		
 		// Graphical part - end
 		
@@ -124,64 +124,64 @@ public class Neuron extends JPanel
 	 * 		GRAPHICAL PART
 	 */
 
-	public Rectangle setRectangleAt(Point point) {
-		
-		this.rectangle.setLocation(point);
-		
-		return this.rectangle;
-	}
-
-	public Point getPosition() {
-		return position;
-	}
-
-	public void setPosition(Point position) {
-		this.position = position;
-	}
-
-	public Rectangle getRectangle() {
-		return rectangle;
-	}
-
-	public void setRectangle(Rectangle rectangle) {
-		this.rectangle = rectangle;
-	}
-	
-	/**
-	 * 
-	 * @param g
-	 * @param point - Is the position of the top left corner of a neuron
-	 */
-	public void paintComponentDebug(Graphics g, int x, int y) {
-		
-		g.drawRect(rectangle.x + x, rectangle.y + y,
-				rectangle.width, rectangle.height);
-		
-		g.drawString("" + output , rectangle.x + x + rectangle.width / 6,
-				rectangle.y + y + rectangle.height / 2);
-	}
-	
-	public void paintComponent(Graphics g) {
-		
-		if (this.isInput && inputs != null) {
-			g.drawString("" + (int) inputs.get(0).getOutput(), position.x - 10,
-					position.y + 10);
-		}
-		
-		g.setColor(Color.GREEN);
-		g.fillOval(position.x, position.y, 10, 10);
-		
-		if (inputs != null) {
-			for (int i = 0; i < inputs.size(); ++i) {
-				if (inputs.get(i).getPosition() != null)
-					g.drawLine(position.x + 5 , position.y + 5,
-							inputs.get(i).getPosition().x + 5,
-							inputs.get(i).getPosition().y + 5);
-			}
-		}
-		
-		g.setColor(Color.black);
-	}
+//	public Rectangle setRectangleAt(Point point) {
+//		
+//		this.rectangle.setLocation(point);
+//		
+//		return this.rectangle;
+//	}
+//
+//	public Point getPosition() {
+//		return position;
+//	}
+//
+//	public void setPosition(Point position) {
+//		this.position = position;
+//	}
+//
+//	public Rectangle getRectangle() {
+//		return rectangle;
+//	}
+//
+//	public void setRectangle(Rectangle rectangle) {
+//		this.rectangle = rectangle;
+//	}
+//	
+//	/**
+//	 * 
+//	 * @param g
+//	 * @param point - Is the position of the top left corner of a neuron
+//	 */
+//	public void paintComponentDebug(Graphics g, int x, int y) {
+//		
+//		g.drawRect(rectangle.x + x, rectangle.y + y,
+//				rectangle.width, rectangle.height);
+//		
+//		g.drawString("" + output , rectangle.x + x + rectangle.width / 6,
+//				rectangle.y + y + rectangle.height / 2);
+//	}
+//	
+//	public void paintComponent(Graphics g) {
+//		
+//		if (this.isInput && inputs != null) {
+//			g.drawString("" + (int) inputs.get(0).getOutput(), position.x - 10,
+//					position.y + 10);
+//		}
+//		
+//		g.setColor(Color.GREEN);
+//		g.fillOval(position.x, position.y, 10, 10);
+//		
+//		if (inputs != null) {
+//			for (int i = 0; i < inputs.size(); ++i) {
+//				if (inputs.get(i).getPosition() != null)
+//					g.drawLine(position.x + 5 , position.y + 5,
+//							inputs.get(i).getPosition().x + 5,
+//							inputs.get(i).getPosition().y + 5);
+//			}
+//		}
+//		
+//		g.setColor(Color.black);
+//	}
 }
 
 
