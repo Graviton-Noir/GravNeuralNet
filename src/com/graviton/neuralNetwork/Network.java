@@ -10,7 +10,7 @@ public class Network
 	private double globalError = 0;
 	//public double outputs[] = {0, 0, 0, 0};
 	
-	private static final double LEARNING_COEF = 0.1;
+	private double LEARNING_COEF = 0.1;
 	
 	//private int positionDep = 80;
 	//private int distanceBtwNeurons = 20;
@@ -142,7 +142,7 @@ public class Network
 		return this.output;
 	}
 	
-	static public double getLearningCoef()
+	public double getLearningCoef()
 	{
 		// TODO [SC] - go random
 		return LEARNING_COEF;

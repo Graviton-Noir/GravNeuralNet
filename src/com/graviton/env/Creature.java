@@ -14,13 +14,12 @@ public class Creature extends JPanel {
 	private float speed;
 	private float rotationSpeed;
 	
-	private Vector2 direction;
+	private Point direction;
 	private Point position;
-	private Vector2 range;
+	//private Vector2 range;
 	
 	private int width;
 	private int height;
-	private Color color;
 	
 	private boolean isBurned;
 	private boolean transports;
@@ -28,13 +27,23 @@ public class Creature extends JPanel {
 	
 	private int life;
 	
-	private Network brain;
+	//private Network brain;
 	
-	public Creature() {
+	public Creature(Point position, Point direction) {
 		width = 5;
 		height = 5;
 		
-		color = Color.WHITE;
+		this.position = position;
+		this.direction = direction;
+		
+		speed = 0.5f;
+		rotationSpeed = 0.5f;
+		
+		life = 100;
+		
+		isBurned = false;
+		transports = false;
+		hungry = false;
 	}
 	
 	public void burned() {
@@ -61,6 +70,23 @@ public class Creature extends JPanel {
 		hungry = false;
 	}
 	
+	public void update() {
+		// TODO [SC] - Faire fonctionner le cerveau
+		// En fonction de la sortie du réseau de neurone, on dit si on veut faire avancer la bestiole ou la faire tourner
+		
+		// 1 : gauche
+		// 2 : droite
+		int TEST = 1;
+		
+		if (TEST == 1) {
+			// TODO [SC] - Obtenir vecteur orthogonale
+			// Et modifier la direction
+		} else {
+			
+		}
+		
+		position.setLocation(position.getX() + direction.getX() * speed, position.getY() + direction.getY() * speed);
+	}
 	
 	public void drawComponent(Graphics g) {
 		if (isBurned) {
@@ -72,6 +98,7 @@ public class Creature extends JPanel {
 		} else {
 			g.setColor(Color.WHITE);
 		}
+		
 		g.drawOval(position.x, position.y, width, height);
 	}
 }
