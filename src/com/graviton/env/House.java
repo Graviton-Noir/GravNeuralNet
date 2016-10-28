@@ -1,5 +1,5 @@
 package com.graviton.env;
 
-public class House {
+public class House extends Environment {
 
 }

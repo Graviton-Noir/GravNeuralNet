@@ -1,5 +1,5 @@
 package com.graviton.env;
 
-public class Water {
+public class Water extends Environment {
 
 }

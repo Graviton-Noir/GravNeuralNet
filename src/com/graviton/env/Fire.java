@@ -1,5 +1,5 @@
 package com.graviton.env;
 
-public class Fire {
+public class Fire extends Environment{
 
 }

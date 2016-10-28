@@ -1,5 +1,5 @@
 package com.graviton.env;
 
-public class Diamond {
+public class Diamond extends Item{
 
 }

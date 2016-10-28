@@ -28,6 +28,9 @@ public class Neuron extends JPanel
 	private Rectangle rectangle;
 	private Point position;
 	
+	// TODO [SC] - Put outside : each creatures will have different learning coefficient
+	private double learnCoef = 0.1;
+	
 	public Neuron(ArrayList<Neuron> inputs, Boolean isInput/*, Point position*/) 
 	{
 		this.inputs = inputs;
@@ -85,7 +88,7 @@ public class Neuron extends JPanel
 	public void updatingWeight()
 	{
 		for (int i = 0; i < synapses.size(); i++) {
-			synapses.set(i, synapses.get(i) + (Network.getLearningCoef() * localError * inputs.get(i).getOutput()
+			synapses.set(i, synapses.get(i) + (learnCoef * localError * inputs.get(i).getOutput()
 					* Sigmoide.derivate(computedSum)));
 		}
 	}
