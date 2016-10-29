@@ -23,6 +23,8 @@ public class Interface extends JFrame
 		this.setVisible(true);
 	}
 	
+	// [SC] - Should not do dat ! It is just container, JPanel can handle itself
+	// just use pan.invalidate();
 	public void display(double tab[])
 	{
 		pan.updatePanneau(tab);
