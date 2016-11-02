@@ -2,9 +2,14 @@ package com.graviton.util;
 
 import java.awt.Point;
 
+/**
+ * 
+ * @author SC
+ *
+ */
 public class Vector2 {
 
-	private Point a;
+	private Point a; // origin
 	private Point b;
 	
 	public Vector2() {
@@ -21,8 +26,24 @@ public class Vector2 {
 		return Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
 	}
 	
-	public static double length(Point a, Point b) {
-		return Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
+	public Vector2 orthogonalLeft() {
+		
+		Point p = new Point();
+		p.setLocation(b.getX() * (-Math.PI), b.getY() * (-Math.PI));
+		
+		return new Vector2(a, p);
+	}
+	
+	public Vector2 orthogonalRight() {
+		
+		Point p = new Point();
+		p.setLocation(b.getX() * Math.PI, b.getY() * Math.PI);
+		
+		return new Vector2(a, p);
+	}
+	
+	public void makeUnit() {
+		b.setLocation(b.getX() / length(), b.getY() / length());
 	}
 	
 	//////////////////////////////////////////
