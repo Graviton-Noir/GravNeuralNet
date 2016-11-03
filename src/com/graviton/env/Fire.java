@@ -12,6 +12,11 @@ public class Fire extends Environment {
 		height = 30;
 	}
 	
+	// TODO [SC] - Voir s'il ne faut pas plutot faire des get & set
+	public void setFire(Creature c) {
+		c.burned();
+	}
+	
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.ORANGE);
 		g.drawOval(position.x - width / 2, position.y - height / 2, width,  height);

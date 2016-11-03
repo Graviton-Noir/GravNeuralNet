@@ -101,4 +101,24 @@ public class Creature extends JPanel {
 		
 		g.drawOval(position.x, position.y, width, height);
 	}
+
+	//////////////////////////////////
+	//			GET & SET			//
+	//////////////////////////////////
+
+	public Point getPosition() {
+		return position;
+	}
+
+	public void setPosition(Point position) {
+		this.position = position;
+	}
+
+	public int getLife() {
+		return life;
+	}
+
+	public void setLife(int life) {
+		this.life = life;
+	}
 }

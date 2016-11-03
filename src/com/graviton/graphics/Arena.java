@@ -25,7 +25,6 @@ public class Arena extends JPanel{
 		this.envList = envList;
 	}
 	
-	
 	public void paintComponent(Graphics g) {
 		for (Environment env : envList) {
 			env.update(g);

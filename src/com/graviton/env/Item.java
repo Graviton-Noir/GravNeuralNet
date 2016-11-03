@@ -21,6 +21,15 @@ public class Item extends JPanel {
 		height = 0;
 	}
 	
+	/**
+	 * When a creature touches it, the location is changed to make it like a new one
+	 * @param x
+	 * @param y
+	 */
+	public void setNewLocation(int x, int y) {
+		position.setLocation(x, y);
+	}
+	
 	//////////////////////////////////
 	//			GET & SET			//
 	//////////////////////////////////

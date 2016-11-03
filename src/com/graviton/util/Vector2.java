@@ -3,7 +3,7 @@ package com.graviton.util;
 import java.awt.Point;
 
 /**
- * 
+ * A revoir ! Peut etre n'utiliser que des points et faire les calculs en conséquences
  * @author SC
  *
  */
