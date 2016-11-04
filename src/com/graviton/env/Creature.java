@@ -14,6 +14,7 @@ public class Creature extends JPanel {
 	private float speed;
 	private float rotationSpeed;
 	
+	// Points are vector from the origin
 	private Point direction;
 	private Point position;
 	//private Vector2 range;
@@ -30,12 +31,18 @@ public class Creature extends JPanel {
 	//private Network brain;
 	
 	public Creature(Point position, Point direction) {
-		width = 5;
-		height = 5;
-		
 		this.position = position;
 		this.direction = direction;
 		
+		Vector2.makeUnit(position,  direction);
+		
+		init();
+	}
+	
+	private void init() {
+		width = 5;
+		height = 5;
+
 		speed = 0.5f;
 		rotationSpeed = 0.5f;
 		
@@ -79,16 +86,16 @@ public class Creature extends JPanel {
 		int TEST = 1;
 		
 		if (TEST == 1) {
-			// TODO [SC] - Obtenir vecteur orthogonale
-			// Et modifier la direction
+			Vector2.turn45Left(position, direction);
 		} else {
-			
+			Vector2.turn45Right(position, direction);
 		}
 		
 		position.setLocation(position.getX() + direction.getX() * speed, position.getY() + direction.getY() * speed);
 	}
 	
-	public void drawComponent(Graphics g) {
+	public void paintComponent(Graphics g) {
+		
 		if (isBurned) {
 			g.setColor(Color.RED);
 		} else if (hungry) {

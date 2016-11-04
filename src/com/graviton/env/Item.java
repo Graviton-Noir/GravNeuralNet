@@ -1,5 +1,6 @@
 package com.graviton.env;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
@@ -7,6 +8,7 @@ import javax.swing.JPanel;
 
 /**
  * heritage pour importer plus d'objet par la suite
+ * TODO change to interface
  * [SC]
  */ 
 public class Item extends JPanel {
@@ -19,6 +21,10 @@ public class Item extends JPanel {
 		position = new Point();
 		width = 0;
 		height = 0;
+	}
+	
+	public void paintComponent(Graphics g) {
+
 	}
 	
 	/**

@@ -3,66 +3,38 @@ package com.graviton.util;
 import java.awt.Point;
 
 /**
- * A revoir ! Peut etre n'utiliser que des points et faire les calculs en conséquences
+ * On part sur l'utilisation de point et Vector2 n'est qu'un outil de calcul
  * @author SC
  *
  */
 public class Vector2 {
-
-	private Point a; // origin
-	private Point b;
 	
-	public Vector2() {
-		a = new Point();
-		b = new Point();
-	}
-	
-	public Vector2(Point a, Point b) {
-		this.a = a;
-		this.b = b;
-	}
-	
-	public double length() {
+	public static double length(Point a, Point b) {
 		return Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
 	}
 	
-	public Vector2 orthogonalLeft() {
-		
-		Point p = new Point();
-		p.setLocation(b.getX() * (-Math.PI), b.getY() * (-Math.PI));
-		
-		return new Vector2(a, p);
+	/**
+	 * From the origin
+	 * @param p
+	 * @return
+	 */
+	public static double length(Point p) {
+		return Math.sqrt(Math.pow(p.x, 2) + Math.pow(p.y, 2));
 	}
 	
-	public Vector2 orthogonalRight() {
-		
-		Point p = new Point();
-		p.setLocation(b.getX() * Math.PI, b.getY() * Math.PI);
-		
-		return new Vector2(a, p);
+	public static void makeUnit(Point p) {
+		p.setLocation(p.getX() / length(p), p.getY() / length(p));
 	}
 	
-	public void makeUnit() {
-		b.setLocation(b.getX() / length(), b.getY() / length());
+	public static void makeUnit(Point a, Point b) {
+		b.setLocation(b.getX() / length(a, b), b.getY() / length(a, b));
 	}
 	
-	//////////////////////////////////////////
-	//				GET & SET				//
-	//////////////////////////////////////////
+	public static void turn45Left(Point a, Point b) {
+		b.setLocation((b.getX() - a.getX()) * Math.cos(Math.PI / 4), (b.getY() - a.getY()) * Math.sin(Math.PI / 4));
+	}
 	
-	public Point getA() {
-		return a;
-	}
-
-	public void setA(Point a) {
-		this.a = a;
-	}
-
-	public Point getB() {
-		return b;
-	}
-
-	public void setB(Point b) {
-		this.b = b;
+	public static void turn45Right(Point a, Point b) {
+		b.setLocation((b.getX() - a.getX()) * Math.cos(-Math.PI / 4), (b.getY() - a.getY()) * Math.sin(-Math.PI / 4));
 	}
 }

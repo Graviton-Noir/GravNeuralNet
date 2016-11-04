@@ -1,11 +1,13 @@
 package com.graviton.graphics;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
 
+import com.graviton.env.Apple;
 import com.graviton.env.Creature;
 import com.graviton.env.Environment;
 import com.graviton.env.Item;
@@ -25,17 +27,29 @@ public class Arena extends JPanel{
 		this.envList = envList;
 	}
 	
+	public void eraseScreen(Graphics g)
+	{
+		g.setColor(Color.white);
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		g.setColor(Color.black);
+	}
+	
 	public void paintComponent(Graphics g) {
+		
+		System.out.println("PRINT");
+		
 		for (Environment env : envList) {
-			env.update(g);
+			env.paintComponents(g);
 		}
 		
 		for (Item it : itemList) {
-			it.update(g);
+			it.paintComponents(g);
 		}
 		
 		for (Creature cr : creatureList) {
-			cr.update(g);
+			cr.paintComponents(g);
 		}
+		
+		System.out.println("END PRINT");
 	}
 }

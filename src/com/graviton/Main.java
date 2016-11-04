@@ -9,23 +9,25 @@ public class Main {
 	public static void main(String[] args) {
 		
 		// TEST
-		int loop = 1000;
+		int loop = 10;
+		int widthFrame = 600;
+		int heightFrame = 480;
 
-		GameManager gameManager = new GameManager();
-		
-		Fenetre frame = new Fenetre();
+		GameManager gameManager = new GameManager(widthFrame, heightFrame);
+		gameManager.gen(5);
 		
 		Arena arena = new Arena(gameManager.getCreatureList(),
 				gameManager.getItemList(),
 				gameManager.getEnvList());
 		
+		Fenetre frame = new Fenetre(widthFrame, heightFrame);
 		frame.addContent(arena);
 		
-		for (int i = 0; i < loop; ++i) {
-			
-			gameManager.update();
-			
-			frame.invalidate();
-		}
+//		for (int i = 0; i < loop; ++i) {
+//			gameManager.update();
+//			
+//			
+			frame.draw();
+//		}
 	}
 }

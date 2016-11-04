@@ -13,6 +13,7 @@ public class Apple extends Item {
 	}
 	
 	public void paintComponent(Graphics g) {
+		System.out.println("FUCKING CHILDREN");
 		g.setColor(Color.RED);
 		g.drawOval(position.x - width / 2, position.y - height / 2, width, height);
 		g.setColor(Color.BLACK);

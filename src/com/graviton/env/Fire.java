@@ -12,7 +12,6 @@ public class Fire extends Environment {
 		height = 30;
 	}
 	
-	// TODO [SC] - Voir s'il ne faut pas plutot faire des get & set
 	public void setFire(Creature c) {
 		c.burned();
 	}
