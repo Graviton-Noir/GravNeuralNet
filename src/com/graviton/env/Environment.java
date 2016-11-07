@@ -21,6 +21,10 @@ public class Environment extends JPanel {
 		height = 0;
 	}
 	
+	public void paintComponent(Graphics g) {
+		
+	}
+	
 	//////////////////////////////////
 	//			GET & SET			//
 	//////////////////////////////////

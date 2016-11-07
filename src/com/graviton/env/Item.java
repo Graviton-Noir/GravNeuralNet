@@ -24,7 +24,7 @@ public class Item extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g) {
-
+		
 	}
 	
 	/**

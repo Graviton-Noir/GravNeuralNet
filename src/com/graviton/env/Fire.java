@@ -8,8 +8,8 @@ public class Fire extends Environment {
 	
 	public Fire(Point p) {
 		position = p;
-		width = 30;
-		height = 30;
+		width = 38;
+		height = 38;
 	}
 	
 	public void setFire(Creature c) {
@@ -18,7 +18,7 @@ public class Fire extends Environment {
 	
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.ORANGE);
-		g.drawOval(position.x - width / 2, position.y - height / 2, width,  height);
+		g.fillOval(position.x - width / 2, position.y - height / 2, width,  height);
 		g.setColor(Color.BLACK);
 	}
 }

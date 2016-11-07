@@ -34,14 +34,14 @@ public class Creature extends JPanel {
 		this.position = position;
 		this.direction = direction;
 		
-		Vector2.makeUnit(position,  direction);
+		Vector2.makeUnit(direction);
 		
 		init();
 	}
 	
 	private void init() {
-		width = 5;
-		height = 5;
+		width = 12;
+		height = 12;
 
 		speed = 0.5f;
 		rotationSpeed = 0.5f;
@@ -81,17 +81,21 @@ public class Creature extends JPanel {
 		// TODO [SC] - Faire fonctionner le cerveau
 		// En fonction de la sortie du réseau de neurone, on dit si on veut faire avancer la bestiole ou la faire tourner
 		
+		// 0 : forward
 		// 1 : gauche
 		// 2 : droite
-		int TEST = 1;
+		int TEST = 0;
 		
-		if (TEST == 1) {
+		if (TEST == 0) {
+			Vector2.addVector(position, direction);
+		}
+		else if (TEST == 1) {
 			Vector2.turn45Left(position, direction);
 		} else {
 			Vector2.turn45Right(position, direction);
 		}
 		
-		position.setLocation(position.getX() + direction.getX() * speed, position.getY() + direction.getY() * speed);
+		position.setLocation(position.getX() + direction.getX() /** speed*/, position.getY() + direction.getY() /** speed*/);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -103,10 +107,10 @@ public class Creature extends JPanel {
 		} else if (transports) {
 			g.setColor(Color.CYAN);
 		} else {
-			g.setColor(Color.WHITE);
+			g.setColor(Color.GREEN);
 		}
 		
-		g.drawOval(position.x, position.y, width, height);
+		g.fillOval(position.x, position.y, width, height);
 	}
 
 	//////////////////////////////////

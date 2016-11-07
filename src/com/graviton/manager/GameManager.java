@@ -52,7 +52,9 @@ public class GameManager {
 	}
 	
 	public void update() {
-		// TODO [SC] - update every element of the game
+		for (Creature cr : creatureList) {
+			cr.update();
+		}
 	}
 	
 	//////////////////////////////////

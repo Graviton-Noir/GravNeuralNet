@@ -14,7 +14,7 @@ public class Diamond extends Item {
 
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.CYAN);
-		g.drawRect(position.x - width / 2, position.y - height / 2, width, height);
+		g.fillRect(position.x - width / 2, position.y - height / 2, width, height);
 		g.setColor(Color.BLACK);
 	}
 }

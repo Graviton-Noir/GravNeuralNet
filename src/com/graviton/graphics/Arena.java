@@ -36,20 +36,18 @@ public class Arena extends JPanel{
 	
 	public void paintComponent(Graphics g) {
 		
-		System.out.println("PRINT");
+		eraseScreen(g);
 		
 		for (Environment env : envList) {
-			env.paintComponents(g);
+			env.paintComponent(g);
 		}
 		
 		for (Item it : itemList) {
-			it.paintComponents(g);
+			it.paintComponent(g);
 		}
 		
 		for (Creature cr : creatureList) {
-			cr.paintComponents(g);
+			cr.paintComponent(g);
 		}
-		
-		System.out.println("END PRINT");
 	}
 }

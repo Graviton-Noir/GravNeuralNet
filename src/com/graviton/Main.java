@@ -9,7 +9,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		// TEST
-		int loop = 10;
+		int loop = 10000;
 		int widthFrame = 600;
 		int heightFrame = 480;
 
@@ -23,11 +23,16 @@ public class Main {
 		Fenetre frame = new Fenetre(widthFrame, heightFrame);
 		frame.addContent(arena);
 		
-//		for (int i = 0; i < loop; ++i) {
-//			gameManager.update();
-//			
-//			
+		for (int i = 0; i < loop; ++i) {
+			gameManager.update();
+			
+			try {
+				Thread.sleep(33);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			frame.draw();
-//		}
+		}
 	}
 }

@@ -37,4 +37,14 @@ public class Vector2 {
 	public static void turn45Right(Point a, Point b) {
 		b.setLocation((b.getX() - a.getX()) * Math.cos(-Math.PI / 4), (b.getY() - a.getY()) * Math.sin(-Math.PI / 4));
 	}
+	
+	/**
+	 * Fonction utiliser pour le déplacement
+	 * @param a
+	 * @param b
+	 */
+	public static void addVector(Point origin, Point direction) {
+		origin.setLocation(origin.getX() + direction.getX(),
+				origin.getY() + direction.getY());
+	}
 }
